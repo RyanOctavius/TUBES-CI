@@ -26,7 +26,7 @@ Class CartKendaraan extends REST_Controller{
                         'label' => 'nama',
                         'rules' => 'required'
                     ],
-                    [ 
+                    [
                         'field' => 'merk',  
                         'label' => 'merk',
                         'rules' => 'required'
@@ -34,12 +34,12 @@ Class CartKendaraan extends REST_Controller{
                     [ 
                         'field' => 'am',  
                         'label' => 'am',
-                        'rules' => 'required'
+                        'rules' => 'required|matches[Automatic]|matches[Manual]|matches[automatic]|matches[manual]'
                     ],
-                    [ 
+                    [
                         'field' => 'harga',  
                         'label' => 'harga',
-                        'rules' => 'required'
+                        'rules' => 'required|numeric'
                     ],
                     [
                         'field' => 'username',  

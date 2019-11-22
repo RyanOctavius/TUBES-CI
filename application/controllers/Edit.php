@@ -15,29 +15,30 @@ Class Edit extends REST_Controller {
         $this->load->helper('url');
     }
 
-    public function index_post($username = null){
+    public function index_put($username = null){
+        
         $validation = $this->form_validation; 
         $rule = $this->UserModel->rules(); 
             array_push($rule,
                     [ 
                         'field' => 'username',  
                         'label' => 'username',
-                        'rules' => 'required'
+                        'rules' => 'required|min_length[5]|max_length[12]|is_unique[user.username]'
                     ],
                     [
                         'field' => 'email',  
                         'label' => 'email',
-                        'rules' => 'required'
+                        'rules' => 'required|valid_email|is_unique[user.email]'
                     ],
                     [ 
                         'field' => 'password',  
                         'label' => 'password',
-                        'rules' => 'required'
+                        'rules' => 'required|min_length[6]'
                     ],
                     [
                         'field' => 'noTelp',  
                         'label' => 'noTelp',
-                        'rules' => 'required'
+                        'rules' => 'required|min_length[10]|max_length[12]'
                     ]
                 );
             
@@ -51,6 +52,7 @@ Class Edit extends REST_Controller {
             $user->password = $this->post('password'); 
             $user->noTelp = $this->post('noTelp');
             $response = $this->UserModel->update($user,$username);
+            echo $user->username;
             
             return $this->returnData($response['msg'],$response['error']); 
     

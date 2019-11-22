@@ -68,22 +68,19 @@ class UserModel extends CI_Model {
         'username' =>$request->username,
         'password' => password_hash($request->password, PASSWORD_BCRYPT),
         'noTelp' =>$request->noTelp,
+        'role' => $request->role,
         ]; 
 
         $query = "SELECT * FROM user WHERE username = ? LIMIT 1" ;
-        $result = $this->db->query($query, $this->username);
+        $result = $this->db->query($query, $username);
         if($result->num_rows() == 0)
         {
             $query = "SELECT * FROM user WHERE email = ? LIMIT 1" ;
             $result = $this->db->query($query, $request->email);
             if($result->num_rows()==0)
             {
-                $query = "UPDATE user
-                SET username = ?, email = ?, password = ?
-                WHERE username = ?";
-
-                $result = $this->db->query($query, $this->username);
-
+                $this->db->where('username',$username)->update($this->table, $updateData);
+                return ['msg'=>'Berhasil','error'=>false];
             }
             else{
                 return ['msg'=>'Email sudah ada','error'=>true];

@@ -27,22 +27,22 @@ Class Signup extends REST_Controller {
                     [ 
                         'field' => 'username',  
                         'label' => 'username',
-                        'rules' => 'required'
+                        'rules' => 'required|min_length[5]|max_length[12]|is_unique[user.username]'
                     ],
                     [
                         'field' => 'email',  
                         'label' => 'email',
-                        'rules' => 'required|valid_email|is_unique'
+                        'rules' => 'required|valid_email|is_unique[user.email]'
                     ],
                     [ 
                         'field' => 'password',  
                         'label' => 'password',
-                        'rules' => 'required'
+                        'rules' => 'required|min_length[6]'
                     ],
                     [
                         'field' => 'noTelp',  
                         'label' => 'noTelp',
-                        'rules' => 'required'
+                        'rules' => 'required|min_length[10]|max_length[12]'
                     ]
                 );
             } 
@@ -51,22 +51,22 @@ Class Signup extends REST_Controller {
                     [ 
                         'field' => 'username',  
                         'label' => 'username',
-                        'rules' => 'required'
+                        'rules' => 'required|min_length[5]|max_length[12]|is_unique[user.username]'
                     ],
                     [
                         'field' => 'email',  
                         'label' => 'email',
-                        'rules' => 'required'
+                        'rules' => 'required|valid_email|is_unique[user.email]'
                     ],
                     [ 
                         'field' => 'password',  
                         'label' => 'password',
-                        'rules' => 'required'
+                        'rules' => 'required|min_length[6]'
                     ],
                     [
                         'field' => 'noTelp',  
                         'label' => 'noTelp',
-                        'rules' => 'required'
+                        'rules' => 'required|min_length[10]|max_length[12]'
                     ]
                 );
             }
@@ -85,6 +85,48 @@ Class Signup extends REST_Controller {
             }else{
                 $response = $this->UserModel->update($user,$id);
             }
+            return $this->returnData($response['msg'],$response['error']); 
+    
+    }
+
+    public function index_put($username = null){
+        $validation = $this->form_validation; 
+        $rule = $this->UserModel->rules(); 
+            array_push($rule,
+                    [ 
+                        'field' => 'username',  
+                        'label' => 'username',
+                        'rules' => 'required|min_length[5]|max_length[12]|is_unique[user.username]',
+                    ],
+                    [
+                        'field' => 'email',  
+                        'label' => 'email',
+                        'rules' => 'required|valid_email|is_unique[user.email]'
+                    ],
+                    [ 
+                        'field' => 'password',  
+                        'label' => 'password',
+                        'rules' => 'required|min_length[6]'
+                    ],
+                    [
+                        'field' => 'noTelp',  
+                        'label' => 'noTelp',
+                        'rules' => 'required|min_length[10]|max_length[12]'
+                    ]
+                );
+            
+            $validation->set_rules($rule); 
+            if (!$validation->run()) {
+                return $this->returnData($this->form_validation->error_array(), true);
+            }
+            $user = new UserData();
+            $user->username = $this->put('username'); 
+            $user->email = $this->put('email'); 
+            $user->password = $this->put('password'); 
+            $user->noTelp = $this->put('noTelp');
+            $user->role = $this->put('role');
+            $response = $this->UserModel->update($user,$username);
+            
             return $this->returnData($response['msg'],$response['error']); 
     
     }

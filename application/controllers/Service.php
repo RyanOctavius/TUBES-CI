@@ -34,7 +34,7 @@ Class Service extends REST_Controller{
                     [ 
                         'field' => 'harga',  
                         'label' => 'harga',
-                        'rules' => 'required'
+                        'rules' => 'required|numeric'
                     ],
                     [ 
                         'field' => 'deskripsi',  
@@ -63,7 +63,7 @@ Class Service extends REST_Controller{
                     [ 
                         'field' => 'harga',  
                         'label' => 'harga',
-                        'rules' => 'required'
+                        'rules' => 'required|numeric'
                     ],
                     [ 
                         'field' => 'deskripsi',  
@@ -72,7 +72,7 @@ Class Service extends REST_Controller{
                     ],
                     [ 
                         'field' => 'link',  
-                        'label' => 'linj',
+                        'label' => 'link',
                         'rules' => 'required'
                     ]
                 );

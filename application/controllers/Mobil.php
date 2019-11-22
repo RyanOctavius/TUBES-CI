@@ -35,12 +35,12 @@ Class Mobil extends REST_Controller {
                     [ 
                         'field' => 'am',  
                         'label' => 'am',
-                        'rules' => 'required'
+                        'rules' => 'required|matches[Automatic]|matches[Manual]|matches[automatic]|matches[manual]'
                     ],
                     [
                         'field' => 'harga',  
                         'label' => 'harga',
-                        'rules' => 'required'
+                        'rules' => 'required|numeric'
                     ],
                     [   
                         'field' => 'link',
@@ -64,15 +64,15 @@ Class Mobil extends REST_Controller {
                     [ 
                         'field' => 'am',  
                         'label' => 'am',
-                        'rules' => 'required'
+                        'rules' => 'required|matches[Automatic]|matches[Manual]|matches[automatic]|matches[manual]'
                     ],
                     [
                         'field' => 'harga',  
                         'label' => 'harga',
-                        'rules' => 'required'
+                        'rules' => 'required|numeric'
                     ],
-                    [
-                        'field' => 'link',  
+                    [   
+                        'field' => 'link',
                         'label' => 'link',
                         'rules' => 'required'
                     ]
